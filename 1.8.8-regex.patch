@@ -1,0 +1,14 @@
+--- origsrc/guile-1.8.8/configure.in	2010-12-13 11:24:39.000000000 -0600
++++ src/guile-1.8.8/configure.in	2013-12-04 00:03:27.593772600 -0600
+@@ -1088,8 +1088,10 @@ if test "$enable_regex" = yes; then
+      GUILE_NAMED_CHECK_FUNC(regcomp, norx, [AC_LIBOBJ([regex-posix])],
+      [AC_CHECK_LIB(rx, main)
+       GUILE_NAMED_CHECK_FUNC(regcomp, rx, [AC_LIBOBJ([regex-posix])],
++     [AC_CHECK_LIB(gnurx, main)
++      GUILE_NAMED_CHECK_FUNC(regcomp, rx, [AC_LIBOBJ([regex-posix])],
+      [AC_CHECK_LIB(regex, main)
+-      GUILE_NAMED_CHECK_FUNC(regcomp, regex, [AC_LIBOBJ([regex-posix])])])]
++      GUILE_NAMED_CHECK_FUNC(regcomp, regex, [AC_LIBOBJ([regex-posix])])])])]
+      )
+      dnl The following should not be necessary, but for some reason
+      dnl autoheader misses it if we don't include it!

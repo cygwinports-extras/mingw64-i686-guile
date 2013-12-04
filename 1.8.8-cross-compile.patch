@@ -1,0 +1,16 @@
+This macro defines gid_t/uid_t in config.h on platforms (such as mingw32)
+that do not typedef them, but those conflict with Cygwin's native typedefs
+when building in-tree $build-native tools.  These don't seem to be used
+within guile anyway, so omitting them is the simplest solution.
+
+--- origsrc/guile-1.8.8/configure.in	2010-12-13 11:24:39.000000000 -0600
++++ src/guile-1.8.8/configure.in	2013-12-04 00:03:27.593772600 -0600
+@@ -684,7 +684,7 @@ AC_CHECK_TYPE(struct ip_mreq)
+ 
+ GUILE_HEADER_LIBC_WITH_UNISTD
+ 
+-AC_TYPE_GETGROUPS
++dnl AC_TYPE_GETGROUPS
+ AC_TYPE_SIGNAL
+ AC_TYPE_MODE_T
+ 

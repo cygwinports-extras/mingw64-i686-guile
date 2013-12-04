@@ -1,0 +1,47 @@
+CROSS_HOST="i686-w64-mingw32"
+inherit cross
+
+NAME="mingw64-i686-guile"
+VERSION=1.8.8
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="GNU Scheme interpreter library for Win32 toolchain"
+DESCRIPTION="Guile is an interpreter for Scheme, packaged as a library that
+you can link into your applications to give them their own scripting language."
+HOMEPAGE="http://www.gnu.org/software/guile/guile.html"
+SRC_URI="mirror://gnu/guile/guile-${VERSION}.tar.gz
+         mirror://gnu/guile/guile-${VERSION}.tar.gz.sig"
+SRC_DIR="guile-${VERSION}"
+PATCH_URI="
+	1.8.5-export-symbols.patch
+	1.8.5-module-ldflags.patch
+	1.8.8-cross-compile.patch
+	1.8.8-regex.patch
+"
+
+DIFF_EXCLUDES="ref test-suite"
+
+CYGCONF_ARGS="
+	--includedir=${CROSS_INCLUDEDIR}/guile/1.8
+	--disable-debug-freelist \
+	--disable-debug-malloc \
+	--disable-guile-debug \
+	--disable-error-on-warning \
+	--disable-rpath \
+	--disable-static \
+	--enable-deprecated \
+	--enable-elisp \
+	--enable-networking \
+	--enable-nls \
+	--enable-posix \
+	--enable-regex \
+	--without-threads \
+	--with-modules
+"
+
+src_install() {
+	cd ${B}
+	cyginstall dist_lisp_LISP= dist_man1_MANS= INFO_DEPS=
+}
+
+KEEP_LA_FILES="module"
